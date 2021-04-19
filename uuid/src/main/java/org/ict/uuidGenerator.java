@@ -2,7 +2,9 @@ package org.ict;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.ict.content.deviceId;
+import org.ict.content.Info;
+import org.ict.content.deviceInfo;
+import org.ict.content.timeInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -44,10 +46,12 @@ public class uuidGenerator {
         long now = System.currentTimeMillis();
         System.out.println(now);
         responseId rI = new responseId();
-        String id="";
+        StringBuilder id= new StringBuilder();
+
+        //build prefix
         StringBuilder tmpPrefix = new StringBuilder(uP.getPrefix());
         if(tmpPrefix.length() >= PrefixLen){
-            id = tmpPrefix.substring(0,8);
+            id = new StringBuilder(tmpPrefix.substring(0, 8));
         }else{
             for(int i = tmpPrefix.length();i<PrefixLen;i++){
                 tmpPrefix.append(' ');
@@ -55,15 +59,20 @@ public class uuidGenerator {
             logger.info("prefix generated:");
             logger.info(tmpPrefix.toString());
         }
+
+        //build content
         ArrayList<contentPiece> tmpContent = uP.getContent();
         ObjectMapper mapper = new ObjectMapper();
         try{
         for(contentPiece c : tmpContent){
            switch(c.getType()){
-               case "timestamp":
+               case "timeInfo":
+                   timeInfo tI = new timeInfo();
+                   id.append(tI.generateString());
                    break;
-               case "device":
-                   deviceId dI = mapper.readValue(c.getJsonContent(),deviceId.class);
+               case "deviceInfo":
+                   deviceInfo dI = mapper.readValue(c.getJsonContent(),deviceInfo.class);
+                   id.append(dI.generateString());
                    break;
                default:
                    break;
@@ -76,7 +85,7 @@ public class uuidGenerator {
             return rI;
         }
         rI.setStatus("success");
-        rI.setId(id);
+        rI.setId(id.toString());
         return rI;
     }
 }
