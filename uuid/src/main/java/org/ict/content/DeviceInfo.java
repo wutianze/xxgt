@@ -1,6 +1,6 @@
 package org.ict.content;
 
-public class deviceInfo implements Info{
+public class DeviceInfo implements BaseInfo{
     boolean a; //default false
 
     public void setA(boolean a) {

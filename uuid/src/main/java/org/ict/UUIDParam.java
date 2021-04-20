@@ -1,7 +1,8 @@
 package org.ict;
 
 import java.util.ArrayList;
-class contentPiece{
+
+class ContentPiece{
     String type;
     String jsonContent;
 
@@ -21,9 +22,10 @@ class contentPiece{
         this.jsonContent = jsonContent;
     }
 }
-public class uuidParam {
+
+public class UUIDParam {
     String prefix;
-    ArrayList<contentPiece>content;
+    ArrayList<ContentPiece>content;
 
     public String getPrefix() {
         return prefix;
@@ -33,11 +35,11 @@ public class uuidParam {
         this.prefix = prefix;
     }
 
-    public ArrayList<contentPiece> getContent() {
+    public ArrayList<ContentPiece> getContent() {
         return content;
     }
 
-    public void setContent(ArrayList<contentPiece> content) {
+    public void setContent(ArrayList<ContentPiece> content) {
         this.content = content;
     }
 

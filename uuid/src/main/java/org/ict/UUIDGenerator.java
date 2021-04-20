@@ -2,9 +2,8 @@ package org.ict;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.ict.content.Info;
-import org.ict.content.deviceInfo;
-import org.ict.content.timeInfo;
+import org.ict.content.DeviceInfo;
+import org.ict.content.TimeInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.IOException;
 import java.util.ArrayList;
 
-class responseId{
+class ResponseID{
     String status;
     String id;
 
@@ -35,25 +34,26 @@ class responseId{
         this.id = id;
     }
 }
+
 @RestController
-public class uuidGenerator {
+public class UUIDGenerator {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
-    private final int PrefixLen = 8;
+    private final int PREFIX_LEN = 8;
 
     @ResponseBody
     @RequestMapping("/generate")
-    public responseId generate(@RequestBody uuidParam uP) throws IOException {
+    public ResponseID generate(@RequestBody UUIDParam uP) throws IOException {
         long now = System.currentTimeMillis();
         System.out.println(now);
-        responseId rI = new responseId();
+        ResponseID rI = new ResponseID();
         StringBuilder id= new StringBuilder();
 
         //build prefix
         StringBuilder tmpPrefix = new StringBuilder(uP.getPrefix());
-        if(tmpPrefix.length() >= PrefixLen){
+        if(tmpPrefix.length() >= PREFIX_LEN){
             id = new StringBuilder(tmpPrefix.substring(0, 8));
         }else{
-            for(int i = tmpPrefix.length();i<PrefixLen;i++){
+            for(int i = tmpPrefix.length();i<PREFIX_LEN;i++){
                 tmpPrefix.append(' ');
             }
             logger.info("prefix generated:");
@@ -61,17 +61,17 @@ public class uuidGenerator {
         }
 
         //build content
-        ArrayList<contentPiece> tmpContent = uP.getContent();
+        ArrayList<ContentPiece> tmpContent = uP.getContent();
         ObjectMapper mapper = new ObjectMapper();
         try{
-        for(contentPiece c : tmpContent){
+        for(ContentPiece c : tmpContent){
            switch(c.getType()){
                case "timeInfo":
-                   timeInfo tI = new timeInfo();
+                   TimeInfo tI = new TimeInfo();
                    id.append(tI.generateString());
                    break;
                case "deviceInfo":
-                   deviceInfo dI = mapper.readValue(c.getJsonContent(),deviceInfo.class);
+                   DeviceInfo dI = mapper.readValue(c.getJsonContent(), DeviceInfo.class);
                    id.append(dI.generateString());
                    break;
                default:
