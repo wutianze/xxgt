@@ -1,31 +1,36 @@
 package org.ict.content;
 
+import com.fasterxml.jackson.databind.util.ArrayBuilders;
+
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class TimeInfo implements BaseInfo{
-    AtomicInteger timeSeq;
-
-    public AtomicInteger getTimeSeq() {
-        return timeSeq;
+    AtomicInteger atomicSequenceInteger;
+    public TimeInfo(){
+        atomicSequenceInteger = new AtomicInteger(0);
+    }
+    public AtomicInteger getAtomicSequenceInteger() {
+        return atomicSequenceInteger;
     }
 
-    public void setTimeSeq(AtomicInteger timeSeq) {
-        this.timeSeq = timeSeq;
+    public void setAtomicSequenceInteger(AtomicInteger atomicSequenceInteger) {
+        this.atomicSequenceInteger = atomicSequenceInteger;
     }
 
     @Override
-    public String generateString() throws UnsupportedEncodingException {
-        byte[] tmp0 = new byte[]{(byte)0x00,(byte)0x00,(byte)0x00,(byte)0x09};
-        long timeNow = System.currentTimeMillis();
-        byte[] tmp1 = BaseInfo.longToBytes(timeNow);
-        byte[] tmp2 = new byte[1];
-        timeSeq.getAndIncrement();
-        tmp2[0] = timeSeq.byteValue();
-        byte[] returnBytes = new byte[tmp0.length + tmp1.length + tmp2.length];
-        System.arraycopy(tmp0, 0, returnBytes, 0, tmp0.length);
-        System.arraycopy(tmp1, 0, returnBytes, tmp0.length, tmp1.length);
-        System.arraycopy(tmp2, 0, returnBytes, tmp0.length+tmp1.length, tmp2.length);
-        return BaseInfo.bytes2String(returnBytes);
+    public ArrayList<Byte> generateBytes(){
+        ArrayList<Byte>returnBytes = new ArrayList<>();
+        returnBytes.add((byte)0x00);
+        returnBytes.add((byte)0x00);
+        returnBytes.add((byte)0x00);
+        returnBytes.add((byte)0x09);
+
+        returnBytes.addAll(BaseInfo.longToBytesList(System.currentTimeMillis()));
+        atomicSequenceInteger.getAndIncrement();
+        returnBytes.add(atomicSequenceInteger.byteValue());
+        return returnBytes;
     }
 }

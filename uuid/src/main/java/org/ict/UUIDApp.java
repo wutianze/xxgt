@@ -13,9 +13,9 @@ public class UUIDApp {
     public static void main(String[] args) {
         //for test
         String t = "abc";
-        byte[]b = BaseInfo.string2Bytes(t);
+        byte[]b = BaseInfo.stringToBytes(t);
         try {
-            System.out.println(BaseInfo.bytes2String(b));
+            System.out.println(BaseInfo.bytesToString(b));
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
