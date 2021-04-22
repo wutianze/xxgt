@@ -23,6 +23,14 @@ public class QosInfo implements BaseInfo{
     }
 
     @Override
+    public String toString() {
+        return "QosInfo{" +
+                "qosType=" + qosType +
+                ", qosValue=" + qosValue +
+                '}';
+    }
+
+    @Override
     public ArrayList<Byte> generateBytes() {
         ArrayList<Byte> returnBytes = new ArrayList<>();
         returnBytes.add((byte)0x00);

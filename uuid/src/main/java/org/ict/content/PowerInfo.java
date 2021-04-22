@@ -41,6 +41,16 @@ public class PowerInfo implements BaseInfo{
     }
 
     @Override
+    public String toString() {
+        return "PowerInfo{" +
+                "powerType=" + powerType +
+                ", powerAbility=" + powerAbility +
+                ", powerOwner='" + powerOwner + '\'' +
+                ", powerAuthority=" + powerAuthority +
+                '}';
+    }
+
+    @Override
     public ArrayList<Byte> generateBytes(){
         ArrayList<Byte> returnBytes = new ArrayList<>();
         returnBytes.add((byte)0x00);

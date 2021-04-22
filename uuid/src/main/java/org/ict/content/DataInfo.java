@@ -32,6 +32,15 @@ public class DataInfo implements BaseInfo{
     }
 
     @Override
+    public String toString() {
+        return "DataInfo{" +
+                "dataType=" + dataType +
+                ", dataSize=" + dataSize +
+                ", dataAuthority=" + dataAuthority +
+                '}';
+    }
+
+    @Override
     public ArrayList<Byte> generateBytes() {
         ArrayList<Byte> returnBytes = new ArrayList<>();
         returnBytes.add((byte)0x00);

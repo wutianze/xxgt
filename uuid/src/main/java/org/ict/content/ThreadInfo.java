@@ -33,6 +33,15 @@ public class ThreadInfo implements BaseInfo{
     }
 
     @Override
+    public String toString() {
+        return "ThreadInfo{" +
+                "threadID=" + threadID +
+                ", processID=" + processID +
+                ", parentID=" + parentID +
+                '}';
+    }
+
+    @Override
     public ArrayList<Byte> generateBytes() {
         ArrayList<Byte> returnBytes = new ArrayList<>();
         returnBytes.add((byte)0x00);

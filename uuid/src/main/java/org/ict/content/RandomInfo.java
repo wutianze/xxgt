@@ -18,6 +18,13 @@ public class RandomInfo implements BaseInfo{
     }
 
     @Override
+    public String toString() {
+        return "RandomInfo{" +
+                "r=" + r +
+                '}';
+    }
+
+    @Override
     public ArrayList<Byte> generateBytes(){
         ArrayList<Byte> returnBytes = new ArrayList<>();
         returnBytes.add((byte)0x00);

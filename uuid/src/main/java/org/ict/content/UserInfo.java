@@ -2,6 +2,7 @@ package org.ict.content;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -10,7 +11,8 @@ import java.util.Arrays;
 public class UserInfo implements BaseInfo{
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     Byte userType;
-    final int USER_KEY_LENGTH = 20;
+    @Value("${org.ict.USER_KEY_LENGTH}")
+    int USER_KEY_LENGTH;
     String userKey;
     int powerAuthority;
     int dataAuthority;
@@ -45,6 +47,17 @@ public class UserInfo implements BaseInfo{
 
     public void setDataAuthority(int dataAuthority) {
         this.dataAuthority = dataAuthority;
+    }
+
+    @Override
+    public String toString() {
+        return "UserInfo{" +
+                "userType=" + userType +
+                ", USER_KEY_LENGTH=" + USER_KEY_LENGTH +
+                ", userKey='" + userKey + '\'' +
+                ", powerAuthority=" + powerAuthority +
+                ", dataAuthority=" + dataAuthority +
+                '}';
     }
 
     @Override

@@ -51,6 +51,17 @@ public class QuintupleInfo implements BaseInfo{
     }
 
     @Override
+    public String toString() {
+        return "QuintupleInfo{" +
+                "sourceIP=" + Arrays.toString(sourceIP) +
+                ", sourcePort=" + sourcePort +
+                ", destinationIP=" + Arrays.toString(destinationIP) +
+                ", destinationPort=" + destinationPort +
+                ", protocol=" + protocol +
+                '}';
+    }
+
+    @Override
     public ArrayList<Byte> generateBytes() {
         ArrayList<Byte> returnBytes = new ArrayList<>();
         returnBytes.add((byte)0x00);

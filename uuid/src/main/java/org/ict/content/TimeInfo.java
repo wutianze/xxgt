@@ -21,6 +21,13 @@ public class TimeInfo implements BaseInfo{
     }
 
     @Override
+    public String toString() {
+        return "TimeInfo{" +
+                "atomicSequenceInteger=" + atomicSequenceInteger +
+                '}';
+    }
+
+    @Override
     public ArrayList<Byte> generateBytes(){
         ArrayList<Byte>returnBytes = new ArrayList<>();
         returnBytes.add((byte)0x00);

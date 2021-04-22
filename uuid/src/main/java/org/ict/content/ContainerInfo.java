@@ -32,6 +32,15 @@ public class ContainerInfo implements BaseInfo{
     }
 
     @Override
+    public String toString() {
+        return "ContainerInfo{" +
+                "containerID='" + containerID + '\'' +
+                ", imageID='" + imageID + '\'' +
+                ", containerPID=" + containerPID +
+                '}';
+    }
+
+    @Override
     public ArrayList<Byte> generateBytes() {
         ArrayList<Byte> returnBytes = new ArrayList<>();
         returnBytes.add((byte) 0x00);

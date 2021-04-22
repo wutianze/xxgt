@@ -30,6 +30,16 @@ public class AlgorithmInfo implements BaseInfo{
     public void setPowerNeeded(int powerNeeded) {
         this.powerNeeded = powerNeeded;
     }
+
+    @Override
+    public String toString() {
+        return "AlgorithmInfo{" +
+                "algorithmType=" + algorithmType +
+                ", algorithmVersion=" + algorithmVersion +
+                ", powerNeeded=" + powerNeeded +
+                '}';
+    }
+
     @Override
     public ArrayList<Byte> generateBytes(){
         ArrayList<Byte> returnBytes = new ArrayList<>();

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.ict.content.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -56,20 +57,22 @@ class ResponseID{
 @RestController
 public class UUIDGenerator {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
-    private final int PREFIX_LEN = 10;
+    @Value("${org.ict.PREFIX_LENGTH}")
+    private int PREFIX_LENGTH;
 
     @ResponseBody
     @RequestMapping("/generate")
     public ResponseID generate(@RequestBody UUIDParam paramJSON) throws IOException {
+
         ResponseID responseID = new ResponseID();
         ArrayList<Byte>tmpID = new ArrayList<>();
 
         //build prefix
         StringBuilder tmpPrefix = new StringBuilder(paramJSON.getPrefix());
-        if(tmpPrefix.length() >= PREFIX_LEN){
-            tmpPrefix = new StringBuilder(tmpPrefix.substring(0, PREFIX_LEN));
+        if(tmpPrefix.length() >= PREFIX_LENGTH){
+            tmpPrefix = new StringBuilder(tmpPrefix.substring(0, PREFIX_LENGTH));
         }else{
-            for(int i = tmpPrefix.length();i<PREFIX_LEN;i++){
+            for(int i = tmpPrefix.length();i<PREFIX_LENGTH;i++){
                 tmpPrefix.append(' ');
             }
         }
