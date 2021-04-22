@@ -59,6 +59,8 @@ public class UUIDGenerator {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     @Value("${org.ict.PREFIX_LENGTH}")
     private int PREFIX_LENGTH;
+    @Value("${org.ict.CHECK_LENGTH}")
+    private int CHECK_LENGTH;
 
     @ResponseBody
     @RequestMapping("/generate")
@@ -153,7 +155,7 @@ public class UUIDGenerator {
         String finalIDString = BaseInfo.bytesToString(finalID);
         logger.info(finalIDString);
         logger.info(String.valueOf(finalIDString.length()));
-        responseID.setCheck(BaseInfo.bytesToString(DigestUtils.md5Digest(finalID)));// return 16 bytes
+        responseID.setCheck((BaseInfo.bytesToString(DigestUtils.md5Digest(finalID))).substring(0,CHECK_LENGTH));// return 16 bytes
         logger.info(String.valueOf(responseID.getCheck().length()));
         responseID.setId(finalIDString);
         return responseID;

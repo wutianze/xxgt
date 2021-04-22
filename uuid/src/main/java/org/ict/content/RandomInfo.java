@@ -34,4 +34,9 @@ public class RandomInfo implements BaseInfo{
         returnBytes.addAll(BaseInfo.intToBytesList(r.nextInt()));
         return returnBytes;
     }
+
+    @Override
+    public void recoverFromID(String id) {
+
+    }
 }

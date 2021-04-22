@@ -83,4 +83,9 @@ public class UserInfo implements BaseInfo{
         returnBytes.addAll(BaseInfo.intToBytesList(dataAuthority));
         return returnBytes;
     }
+
+    @Override
+    public void recoverFromID(String id) {
+
+    }
 }

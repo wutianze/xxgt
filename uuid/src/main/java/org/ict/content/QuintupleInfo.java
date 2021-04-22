@@ -76,4 +76,9 @@ public class QuintupleInfo implements BaseInfo{
         returnBytes.addAll(BaseInfo.shortToBytesList(protocol));
         return returnBytes;
     }
+
+    @Override
+    public void recoverFromID(String id) {
+
+    }
 }

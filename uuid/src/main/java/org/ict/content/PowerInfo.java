@@ -65,4 +65,9 @@ public class PowerInfo implements BaseInfo{
         return returnBytes;
     }
 
+    @Override
+    public void recoverFromID(String id) {
+
+    }
+
 }

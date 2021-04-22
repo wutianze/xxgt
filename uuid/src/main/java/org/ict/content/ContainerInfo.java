@@ -53,4 +53,9 @@ public class ContainerInfo implements BaseInfo{
         returnBytes.addAll(BaseInfo.intToBytesList(containerPID));
         return returnBytes;
     }
+
+    @Override
+    public void recoverFromID(String id) {
+
     }
+}

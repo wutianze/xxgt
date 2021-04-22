@@ -53,4 +53,9 @@ public class AlgorithmInfo implements BaseInfo{
         returnBytes.addAll(BaseInfo.intToBytesList(powerNeeded));
         return returnBytes;
     }
+
+    @Override
+    public void recoverFromID(String id) {
+
+    }
 }

@@ -8,7 +8,9 @@ import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class TimeInfo implements BaseInfo{
-    AtomicInteger atomicSequenceInteger;
+    private AtomicInteger atomicSequenceInteger;
+    public long timestamp;
+    public byte timeSequence;
     public TimeInfo(){
         atomicSequenceInteger = new AtomicInteger(0);
     }
@@ -20,10 +22,27 @@ public class TimeInfo implements BaseInfo{
         this.atomicSequenceInteger = atomicSequenceInteger;
     }
 
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public byte getTimeSequence() {
+        return timeSequence;
+    }
+
+    public void setTimeSequence(byte timeSequence) {
+        this.timeSequence = timeSequence;
+    }
+
     @Override
     public String toString() {
         return "TimeInfo{" +
-                "atomicSequenceInteger=" + atomicSequenceInteger +
+                "timestamp=" + timestamp +
+                ", timeSequence=" + timeSequence +
                 '}';
     }
 
@@ -39,5 +58,11 @@ public class TimeInfo implements BaseInfo{
         atomicSequenceInteger.getAndIncrement();
         returnBytes.add(atomicSequenceInteger.byteValue());
         return returnBytes;
+    }
+
+    @Override
+    public void recoverFromID(String id) {
+        this.timestamp = Long.parseLong(id.substring(0,8));
+        this.timeSequence = BaseInfo.stringToBytesArray(id.substring(8,9))[0];
     }
 }

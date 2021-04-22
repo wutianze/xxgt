@@ -54,4 +54,9 @@ public class ThreadInfo implements BaseInfo{
         returnBytes.addAll(BaseInfo.intToBytesList(parentID));
         return returnBytes;
     }
+
+    @Override
+    public void recoverFromID(String id) {
+
+    }
 }

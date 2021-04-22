@@ -42,4 +42,9 @@ public class QosInfo implements BaseInfo{
         returnBytes.addAll(BaseInfo.longToBytesList(qosValue));
         return returnBytes;
     }
+
+    @Override
+    public void recoverFromID(String id) {
+
+    }
 }
