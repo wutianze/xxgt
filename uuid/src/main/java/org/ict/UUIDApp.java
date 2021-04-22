@@ -11,15 +11,6 @@ import java.io.UnsupportedEncodingException;
 @SpringBootApplication
 public class UUIDApp {
     public static void main(String[] args) {
-        //for test
-        String t = "abc";
-        byte[]b = BaseInfo.stringToBytes(t);
-        try {
-            System.out.println(BaseInfo.bytesToString(b));
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        //---
         SpringApplication.run(UUIDApp.class, args);
     }
 }

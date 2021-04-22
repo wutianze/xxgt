@@ -2,9 +2,7 @@ package org.ict;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.ict.content.BaseInfo;
-import org.ict.content.DeviceInfo;
-import org.ict.content.TimeInfo;
+import org.ict.content.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.DigestUtils;
@@ -14,7 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 class ResponseID{
@@ -83,22 +80,64 @@ public class UUIDGenerator {
         ObjectMapper mapper = new ObjectMapper();
         try{
         for(ContentPiece c : tmpContent){
-           switch(c.getType()){
+            ArrayList<Byte> newBytes = null;
+            switch(c.getType()){
                case "timeInfo":
                    TimeInfo timeInfo = new TimeInfo();
-                   tmpID.addAll(timeInfo.generateBytes());
+                   newBytes = timeInfo.generateBytes();
                    break;
                case "deviceInfo":
                    DeviceInfo deviceInfo = mapper.readValue(c.getJsonContent(), DeviceInfo.class);
-                   tmpID.addAll(deviceInfo.generateBytes());
+                   newBytes = deviceInfo.generateBytes();
                    break;
+               case "randomInfo":
+                   RandomInfo randomInfo = new RandomInfo();
+                   newBytes = randomInfo.generateBytes();
+                   break;
+               case "userInfo":
+                   UserInfo userInfo = mapper.readValue(c.getJsonContent(),UserInfo.class);
+                   newBytes = userInfo.generateBytes();
+                   break;
+                case "algorithmInfo":
+                    AlgorithmInfo algorithmInfo = mapper.readValue(c.getJsonContent(),AlgorithmInfo.class);
+                    newBytes = algorithmInfo.generateBytes();
+                    break;
+                case "powerInfo":
+                    PowerInfo powerInfo = mapper.readValue(c.getJsonContent(),PowerInfo.class);
+                    newBytes = powerInfo.generateBytes();
+                    break;
+                case "dataInfo":
+                    DataInfo dataInfo = mapper.readValue(c.getJsonContent(),DataInfo.class);
+                    newBytes = dataInfo.generateBytes();
+                    break;
+                case "quintupleInfo":
+                    QuintupleInfo quintupleInfo = mapper.readValue(c.getJsonContent(),QuintupleInfo.class);
+                    newBytes = quintupleInfo.generateBytes();
+                    break;
+                case "qosInfo":
+                    QosInfo qosInfo = mapper.readValue(c.getJsonContent(),QosInfo.class);
+                    newBytes = qosInfo.generateBytes();
+                    break;
+                case "containerInfo":
+                    ContainerInfo containerInfo = mapper.readValue(c.getJsonContent(),ContainerInfo.class);
+                    newBytes = containerInfo.generateBytes();
+                    break;
+                case "threadInfo":
+                    ThreadInfo threadInfo = mapper.readValue(c.getJsonContent(),ThreadInfo.class);
+                    newBytes = threadInfo.generateBytes();
+                    break;
                default:
                    break;
+           }
+           if(newBytes == null){
+               responseID.setStatus("generate ID fail");
+               return responseID;
+           }else{
+               tmpID.addAll(newBytes);
            }
         }
         }
         catch(JsonParseException e){
-            System.out.println("Error Request Json");
             responseID.setStatus("parse json error");
             return responseID;
         }
