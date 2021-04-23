@@ -32,11 +32,11 @@ public class QosInfo implements BaseInfo{
 
     @Override
     public ArrayList<Byte> generateBytes() {
-        ArrayList<Byte> returnBytes = new ArrayList<>(BaseInfo.shortToBytesList((short) 8));
-        returnBytes.addAll(BaseInfo.shortToBytesList((short)12));
+        ArrayList<Byte> returnBytes = new ArrayList<>(BaseInfo.shortToByteList((short) 8));
+        returnBytes.addAll(BaseInfo.shortToByteList((short)12));
 
-        returnBytes.addAll(BaseInfo.intToBytesList(qosType));
-        returnBytes.addAll(BaseInfo.longToBytesList(qosValue));
+        returnBytes.addAll(BaseInfo.intToByteList(qosType));
+        returnBytes.addAll(BaseInfo.longToByteList(qosValue));
         return returnBytes;
     }
 

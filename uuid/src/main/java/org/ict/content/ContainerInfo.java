@@ -42,12 +42,12 @@ public class ContainerInfo implements BaseInfo{
 
     @Override
     public ArrayList<Byte> generateBytes() {
-        ArrayList<Byte> returnBytes = new ArrayList<>(BaseInfo.shortToBytesList((short) 10));
-        returnBytes.addAll(BaseInfo.shortToBytesList((short)16));
+        ArrayList<Byte> returnBytes = new ArrayList<>(BaseInfo.shortToByteList((short) 10));
+        returnBytes.addAll(BaseInfo.shortToByteList((short)16));
 
-        returnBytes.addAll(BaseInfo.stringToBytesList(containerID));
-        returnBytes.addAll(BaseInfo.stringToBytesList(imageID));
-        returnBytes.addAll(BaseInfo.intToBytesList(containerPID));
+        returnBytes.addAll(BaseInfo.hexStringToByteList(containerID));
+        returnBytes.addAll(BaseInfo.hexStringToByteList(imageID));
+        returnBytes.addAll(BaseInfo.intToByteList(containerPID));
         return returnBytes;
     }
 

@@ -26,10 +26,10 @@ public class RandomInfo implements BaseInfo{
 
     @Override
     public ArrayList<Byte> generateBytes(){
-        ArrayList<Byte> returnBytes = new ArrayList<>(BaseInfo.shortToBytesList((short) 9));
-        returnBytes.addAll(BaseInfo.shortToBytesList((short)4));
+        ArrayList<Byte> returnBytes = new ArrayList<>(BaseInfo.shortToByteList((short) 9));
+        returnBytes.addAll(BaseInfo.shortToByteList((short)4));
 
-        returnBytes.addAll(BaseInfo.intToBytesList(r.nextInt()));
+        returnBytes.addAll(BaseInfo.intToByteList(r.nextInt()));
         return returnBytes;
     }
 

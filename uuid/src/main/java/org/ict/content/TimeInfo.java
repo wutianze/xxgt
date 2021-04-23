@@ -48,13 +48,10 @@ public class TimeInfo implements BaseInfo{
 
     @Override
     public ArrayList<Byte> generateBytes(){
-        ArrayList<Byte>returnBytes = new ArrayList<>();
-        returnBytes.add((byte)0x00);
-        returnBytes.add((byte)0x00);
-        returnBytes.add((byte)0x00);
-        returnBytes.add((byte)0x09);
+        ArrayList<Byte> returnBytes = new ArrayList<>(BaseInfo.shortToByteList((short) 0));
+        returnBytes.addAll(BaseInfo.shortToByteList((short)9));
 
-        returnBytes.addAll(BaseInfo.longToBytesList(System.currentTimeMillis()));
+        returnBytes.addAll(BaseInfo.longToByteList(System.currentTimeMillis()));
         atomicSequenceInteger.getAndIncrement();
         returnBytes.add(atomicSequenceInteger.byteValue());
         return returnBytes;
@@ -62,7 +59,7 @@ public class TimeInfo implements BaseInfo{
 
     @Override
     public void recoverFromID(byte[] id) {
-        this.timestamp = BaseInfo.bytesToLong(Arrays.copyOfRange(id,0,8));
+        this.timestamp = BaseInfo.byteArrayToLong(Arrays.copyOfRange(id,0,8));
         this.timeSequence = id[8];
     }
 }

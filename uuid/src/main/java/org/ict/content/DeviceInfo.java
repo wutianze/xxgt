@@ -62,8 +62,8 @@ public class DeviceInfo implements BaseInfo{
 
     @Override
     public ArrayList<Byte> generateBytes() {
-        ArrayList<Byte> returnBytes = new ArrayList<>(BaseInfo.shortToBytesList((short) 1));
-        returnBytes.addAll(BaseInfo.shortToBytesList((short)18));
+        ArrayList<Byte> returnBytes = new ArrayList<>(BaseInfo.shortToByteList((short) 1));
+        returnBytes.addAll(BaseInfo.shortToByteList((short)18));
 
         if(manufacturerID.length() != MANUFACTURER_ID_LENGTH){
             logger.error("manufactureID's length != "+MANUFACTURER_ID_LENGTH);
@@ -73,10 +73,10 @@ public class DeviceInfo implements BaseInfo{
             logger.error("productID's length != "+PRODUCT_ID_LENGTH);
             return null;
         }
-        returnBytes.addAll(BaseInfo.stringToBytesList(manufacturerID));
-        returnBytes.addAll(BaseInfo.stringToBytesList(productID));
-        returnBytes.addAll(BaseInfo.shortToBytesList(resourceType));
-        returnBytes.addAll(BaseInfo.intToBytesList(resourceID));
+        returnBytes.addAll(BaseInfo.hexStringToByteList(manufacturerID));
+        returnBytes.addAll(BaseInfo.hexStringToByteList(productID));
+        returnBytes.addAll(BaseInfo.shortToByteList(resourceType));
+        returnBytes.addAll(BaseInfo.intToByteList(resourceID));
         return returnBytes;
     }
 

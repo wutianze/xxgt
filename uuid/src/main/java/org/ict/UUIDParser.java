@@ -47,10 +47,10 @@ public class UUIDParser {
 
     private BaseInfo getOneInfo(byte[] id, Integer startIndex){
         int endIndex = startIndex+2;
-        int infoType = BaseInfo.bytesToShort(Arrays.copyOfRange(id,startIndex,endIndex));
+        int infoType = BaseInfo.byteArrayToShort(Arrays.copyOfRange(id,startIndex,endIndex));
         startIndex = endIndex;
         endIndex = endIndex+2;
-        int infoLength = BaseInfo.bytesToShort(Arrays.copyOfRange(id,startIndex,endIndex));
+        int infoLength = BaseInfo.byteArrayToShort(Arrays.copyOfRange(id,startIndex,endIndex));
         startIndex = endIndex;
         endIndex = endIndex+infoLength;
         switch(infoType){
@@ -66,26 +66,27 @@ public class UUIDParser {
     }
 
     public boolean integrityCheck(String forCheck, byte[] content, int cutLength){
-        return forCheck.equals((BaseInfo.bytesToString(DigestUtils.md5Digest(content))).substring(0,cutLength));
+        return forCheck.substring(0,cutLength).equals((BaseInfo.byteArrayToHexString(DigestUtils.md5Digest(content))).substring(0,cutLength));
     }
 
     @RequestMapping("/integrity")
     public boolean integrity(@PathVariable String forCheck, @PathVariable String contentStr){
-        return integrityCheck(forCheck,BaseInfo.stringToBytesArray(contentStr),CHECK_LENGTH);
+        return integrityCheck(forCheck,BaseInfo.hexStringToByteArray(contentStr),CHECK_LENGTH);
     }
 
     @ResponseBody
     @RequestMapping("/parse")
     public ResponseInfo parse(@PathVariable String uuidQuery){
         ResponseInfo returnInfo = new ResponseInfo();
-        byte[] idBytes = BaseInfo.stringToBytesArray(uuidQuery);
-        String prefix = BaseInfo.bytesToString(idBytes,0,PREFIX_LENGTH);
-        String check = BaseInfo.bytesToString(idBytes,PREFIX_LENGTH,PREFIX_LENGTH+CHECK_LENGTH);
-        byte[] id = Arrays.copyOfRange(idBytes,PREFIX_LENGTH+CHECK_LENGTH,idBytes.length);
-        returnInfo.integrity = integrityCheck(check,id,CHECK_LENGTH);
+
+        String prefix = uuidQuery.substring(0,PREFIX_LENGTH);
+
+        String check = uuidQuery.substring(PREFIX_LENGTH,PREFIX_LENGTH+CHECK_LENGTH);
+        byte[] idBytes = BaseInfo.hexStringToByteArray(uuidQuery, PREFIX_LENGTH+CHECK_LENGTH,uuidQuery.length());
+        returnInfo.integrity = integrityCheck(check,idBytes,CHECK_LENGTH);
         Integer startIndex = 0;
-        while(startIndex<id.length){
-            BaseInfo pieceInfo = getOneInfo(id,startIndex);
+        while(startIndex<idBytes.length){
+            BaseInfo pieceInfo = getOneInfo(idBytes,startIndex);
             returnInfo.IDInfos.put(pieceInfo.getClass().getSimpleName(),pieceInfo.toString());
         }
 

@@ -42,12 +42,12 @@ public class DataInfo implements BaseInfo{
 
     @Override
     public ArrayList<Byte> generateBytes() {
-        ArrayList<Byte> returnBytes = new ArrayList<>(BaseInfo.shortToBytesList((short) 5));
-        returnBytes.addAll(BaseInfo.shortToBytesList((short)16));
+        ArrayList<Byte> returnBytes = new ArrayList<>(BaseInfo.shortToByteList((short) 5));
+        returnBytes.addAll(BaseInfo.shortToByteList((short)16));
 
-        returnBytes.addAll(BaseInfo.intToBytesList(dataType));
-        returnBytes.addAll(BaseInfo.longToBytesList(dataSize));
-        returnBytes.addAll(BaseInfo.intToBytesList(dataAuthority));
+        returnBytes.addAll(BaseInfo.intToByteList(dataType));
+        returnBytes.addAll(BaseInfo.longToByteList(dataSize));
+        returnBytes.addAll(BaseInfo.intToByteList(dataAuthority));
         return returnBytes;
     }
 

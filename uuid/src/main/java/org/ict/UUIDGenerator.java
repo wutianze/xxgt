@@ -152,10 +152,10 @@ public class UUIDGenerator {
         for(int i=0;i<tmpID.size();i++){
             finalID[i] = tmpID.get(i);
         }
-        String finalIDString = BaseInfo.bytesToString(finalID);
+        String finalIDString = BaseInfo.byteArrayToHexString(finalID);
         logger.info(finalIDString);
         logger.info(String.valueOf(finalIDString.length()));
-        responseID.setCheck((BaseInfo.bytesToString(DigestUtils.md5Digest(finalID))).substring(0,CHECK_LENGTH));// return 16 bytes
+        responseID.setCheck((BaseInfo.byteArrayToHexString(DigestUtils.md5Digest(finalID))).substring(0,CHECK_LENGTH));// return 16 bytes
         logger.info(String.valueOf(responseID.getCheck().length()));
         responseID.setId(finalIDString);
         return responseID;

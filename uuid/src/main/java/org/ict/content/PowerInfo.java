@@ -52,13 +52,13 @@ public class PowerInfo implements BaseInfo{
 
     @Override
     public ArrayList<Byte> generateBytes(){
-        ArrayList<Byte> returnBytes = new ArrayList<>(BaseInfo.shortToBytesList((short) 4));
-        returnBytes.addAll(BaseInfo.shortToBytesList((short)24));
+        ArrayList<Byte> returnBytes = new ArrayList<>(BaseInfo.shortToByteList((short) 4));
+        returnBytes.addAll(BaseInfo.shortToByteList((short)24));
 
-        returnBytes.addAll(BaseInfo.intToBytesList(powerType));
-        returnBytes.addAll(BaseInfo.intToBytesList(powerAbility));
-        returnBytes.addAll(BaseInfo.stringToBytesList(powerOwner));
-        returnBytes.addAll(BaseInfo.intToBytesList(powerAuthority));
+        returnBytes.addAll(BaseInfo.intToByteList(powerType));
+        returnBytes.addAll(BaseInfo.intToByteList(powerAbility));
+        returnBytes.addAll(BaseInfo.hexStringToByteList(powerOwner));
+        returnBytes.addAll(BaseInfo.intToByteList(powerAuthority));
         return returnBytes;
     }
 

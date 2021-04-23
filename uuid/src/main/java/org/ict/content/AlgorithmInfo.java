@@ -42,12 +42,12 @@ public class AlgorithmInfo implements BaseInfo{
 
     @Override
     public ArrayList<Byte> generateBytes(){
-        ArrayList<Byte> returnBytes = new ArrayList<>(BaseInfo.shortToBytesList((short) 3));
-        returnBytes.addAll(BaseInfo.shortToBytesList((short)14));
+        ArrayList<Byte> returnBytes = new ArrayList<>(BaseInfo.shortToByteList((short) 3));
+        returnBytes.addAll(BaseInfo.shortToByteList((short)14));
 
-        returnBytes.addAll(BaseInfo.longToBytesList(algorithmType));
-        returnBytes.addAll(BaseInfo.shortToBytesList(algorithmVersion));
-        returnBytes.addAll(BaseInfo.intToBytesList(powerNeeded));
+        returnBytes.addAll(BaseInfo.longToByteList(algorithmType));
+        returnBytes.addAll(BaseInfo.shortToByteList(algorithmVersion));
+        returnBytes.addAll(BaseInfo.intToByteList(powerNeeded));
         return returnBytes;
     }
 

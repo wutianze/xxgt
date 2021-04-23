@@ -62,8 +62,8 @@ public class UserInfo implements BaseInfo{
 
     @Override
     public ArrayList<Byte> generateBytes(){
-        ArrayList<Byte> returnBytes = new ArrayList<>(BaseInfo.shortToBytesList((short) 2));
-        returnBytes.addAll(BaseInfo.shortToBytesList((short)30));
+        ArrayList<Byte> returnBytes = new ArrayList<>(BaseInfo.shortToByteList((short) 2));
+        returnBytes.addAll(BaseInfo.shortToByteList((short)30));
 
         //TODO:get info from database
         if(userKey.length() != USER_KEY_LENGTH){
@@ -74,10 +74,10 @@ public class UserInfo implements BaseInfo{
         powerAuthority=100;
         dataAuthority=100;
         //
-        returnBytes.addAll(BaseInfo.shortToBytesList(userType));
-        returnBytes.addAll(BaseInfo.stringToBytesList(userKey));
-        returnBytes.addAll(BaseInfo.intToBytesList(powerAuthority));
-        returnBytes.addAll(BaseInfo.intToBytesList(dataAuthority));
+        returnBytes.addAll(BaseInfo.shortToByteList(userType));
+        returnBytes.addAll(BaseInfo.hexStringToByteList(userKey));
+        returnBytes.addAll(BaseInfo.intToByteList(powerAuthority));
+        returnBytes.addAll(BaseInfo.intToByteList(dataAuthority));
         return returnBytes;
     }
 
