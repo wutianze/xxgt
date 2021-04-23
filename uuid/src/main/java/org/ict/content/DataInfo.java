@@ -42,11 +42,8 @@ public class DataInfo implements BaseInfo{
 
     @Override
     public ArrayList<Byte> generateBytes() {
-        ArrayList<Byte> returnBytes = new ArrayList<>();
-        returnBytes.add((byte)0x00);
-        returnBytes.add((byte)0x00);
-        returnBytes.add((byte)0x05);
-        returnBytes.add((byte)0x10);
+        ArrayList<Byte> returnBytes = new ArrayList<>(BaseInfo.shortToBytesList((short) 5));
+        returnBytes.addAll(BaseInfo.shortToBytesList((short)16));
 
         returnBytes.addAll(BaseInfo.intToBytesList(dataType));
         returnBytes.addAll(BaseInfo.longToBytesList(dataSize));
@@ -55,7 +52,7 @@ public class DataInfo implements BaseInfo{
     }
 
     @Override
-    public void recoverFromID(String id) {
+    public void recoverFromID(byte[] id) {
 
     }
 }

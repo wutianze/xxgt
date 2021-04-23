@@ -52,11 +52,8 @@ public class PowerInfo implements BaseInfo{
 
     @Override
     public ArrayList<Byte> generateBytes(){
-        ArrayList<Byte> returnBytes = new ArrayList<>();
-        returnBytes.add((byte)0x00);
-        returnBytes.add((byte)0x00);
-        returnBytes.add((byte)0x04);
-        returnBytes.add((byte)0x18);
+        ArrayList<Byte> returnBytes = new ArrayList<>(BaseInfo.shortToBytesList((short) 4));
+        returnBytes.addAll(BaseInfo.shortToBytesList((short)24));
 
         returnBytes.addAll(BaseInfo.intToBytesList(powerType));
         returnBytes.addAll(BaseInfo.intToBytesList(powerAbility));
@@ -66,7 +63,7 @@ public class PowerInfo implements BaseInfo{
     }
 
     @Override
-    public void recoverFromID(String id) {
+    public void recoverFromID(byte[] id) {
 
     }
 

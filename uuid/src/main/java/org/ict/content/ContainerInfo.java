@@ -42,11 +42,8 @@ public class ContainerInfo implements BaseInfo{
 
     @Override
     public ArrayList<Byte> generateBytes() {
-        ArrayList<Byte> returnBytes = new ArrayList<>();
-        returnBytes.add((byte) 0x00);
-        returnBytes.add((byte) 0x00);
-        returnBytes.add((byte) 0x0a);
-        returnBytes.add((byte) 0x10);
+        ArrayList<Byte> returnBytes = new ArrayList<>(BaseInfo.shortToBytesList((short) 10));
+        returnBytes.addAll(BaseInfo.shortToBytesList((short)16));
 
         returnBytes.addAll(BaseInfo.stringToBytesList(containerID));
         returnBytes.addAll(BaseInfo.stringToBytesList(imageID));
@@ -55,7 +52,7 @@ public class ContainerInfo implements BaseInfo{
     }
 
     @Override
-    public void recoverFromID(String id) {
+    public void recoverFromID(byte[] id) {
 
     }
 }

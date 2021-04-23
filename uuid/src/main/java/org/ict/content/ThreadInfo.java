@@ -43,11 +43,8 @@ public class ThreadInfo implements BaseInfo{
 
     @Override
     public ArrayList<Byte> generateBytes() {
-        ArrayList<Byte> returnBytes = new ArrayList<>();
-        returnBytes.add((byte)0x00);
-        returnBytes.add((byte)0x00);
-        returnBytes.add((byte)0x0b);
-        returnBytes.add((byte)0x0c);
+        ArrayList<Byte> returnBytes = new ArrayList<>(BaseInfo.shortToBytesList((short) 11));
+        returnBytes.addAll(BaseInfo.shortToBytesList((short)12));
 
         returnBytes.addAll(BaseInfo.intToBytesList(threadID));
         returnBytes.addAll(BaseInfo.intToBytesList(processID));
@@ -56,7 +53,7 @@ public class ThreadInfo implements BaseInfo{
     }
 
     @Override
-    public void recoverFromID(String id) {
+    public void recoverFromID(byte[] id) {
 
     }
 }

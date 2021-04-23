@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 
 class ResponseInfo{
@@ -44,18 +45,18 @@ public class UUIDParser {
     @Value("${org.ict.CHECK_LENGTH}")
     private int CHECK_LENGTH;
 
-    private BaseInfo getOneInfo(String id, Integer startIndex){
-        int endIndex = startIndex+3;
-        int infoType = BaseInfo.bytesToInt(id.substring(startIndex,endIndex).getBytes(StandardCharsets.US_ASCII));
+    private BaseInfo getOneInfo(byte[] id, Integer startIndex){
+        int endIndex = startIndex+2;
+        int infoType = BaseInfo.bytesToShort(Arrays.copyOfRange(id,startIndex,endIndex));
         startIndex = endIndex;
-        endIndex++;
+        endIndex = endIndex+2;
+        int infoLength = BaseInfo.bytesToShort(Arrays.copyOfRange(id,startIndex,endIndex));
+        startIndex = endIndex;
+        endIndex = endIndex+infoLength;
         switch(infoType){
             case 0:
-                int infoLength = Integer.parseInt(id.substring(startIndex,endIndex));
-                startIndex = endIndex;
-                endIndex = endIndex+infoLength;
                 TimeInfo timeInfo = new TimeInfo();
-                timeInfo.recoverFromID(id.substring(startIndex,endIndex));
+                timeInfo.recoverFromID(Arrays.copyOfRange(id,startIndex,endIndex));
                 startIndex = endIndex;
                 return timeInfo;
             default:
@@ -64,27 +65,30 @@ public class UUIDParser {
         }
     }
 
-    public boolean integrityCheck(String forCheck, String content, int cutLength){
-        return forCheck.equals((BaseInfo.bytesToString(DigestUtils.md5Digest(content.getBytes()))).substring(0,cutLength));
+    public boolean integrityCheck(String forCheck, byte[] content, int cutLength){
+        return forCheck.equals((BaseInfo.bytesToString(DigestUtils.md5Digest(content))).substring(0,cutLength));
     }
 
     @RequestMapping("/integrity")
-    public boolean integrity(@PathVariable String forCheck, @PathVariable String content, @PathVariable int cutLength){
-        return integrityCheck(forCheck,content,cutLength);
+    public boolean integrity(@PathVariable String forCheck, @PathVariable String contentStr){
+        return integrityCheck(forCheck,BaseInfo.stringToBytesArray(contentStr),CHECK_LENGTH);
     }
 
     @ResponseBody
     @RequestMapping("/parse")
-    public ResponseInfo parse(String uuidQuery){
+    public ResponseInfo parse(@PathVariable String uuidQuery){
         ResponseInfo returnInfo = new ResponseInfo();
         byte[] idBytes = BaseInfo.stringToBytesArray(uuidQuery);
         String prefix = BaseInfo.bytesToString(idBytes,0,PREFIX_LENGTH);
         String check = BaseInfo.bytesToString(idBytes,PREFIX_LENGTH,PREFIX_LENGTH+CHECK_LENGTH);
-        String id = uuidQuery.substring(PREFIX_LENGTH+CHECK_LENGTH);
+        byte[] id = Arrays.copyOfRange(idBytes,PREFIX_LENGTH+CHECK_LENGTH,idBytes.length);
+        returnInfo.integrity = integrityCheck(check,id,CHECK_LENGTH);
         Integer startIndex = 0;
-        while(startIndex<id.length()){
-
+        while(startIndex<id.length){
+            BaseInfo pieceInfo = getOneInfo(id,startIndex);
+            returnInfo.IDInfos.put(pieceInfo.getClass().getSimpleName(),pieceInfo.toString());
         }
+
         return returnInfo;
     }
 }

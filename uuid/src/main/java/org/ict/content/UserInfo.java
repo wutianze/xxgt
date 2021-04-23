@@ -10,18 +10,18 @@ import java.util.Arrays;
 
 public class UserInfo implements BaseInfo{
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
-    Byte userType;
+    short userType;
     @Value("${org.ict.USER_KEY_LENGTH}")
     int USER_KEY_LENGTH;
     String userKey;
     int powerAuthority;
     int dataAuthority;
 
-    public Byte getUserType() {
+    public short getUserType() {
         return userType;
     }
 
-    public void setUserType(Byte userType) {
+    public void setUserType(short userType) {
         this.userType = userType;
     }
 
@@ -62,11 +62,8 @@ public class UserInfo implements BaseInfo{
 
     @Override
     public ArrayList<Byte> generateBytes(){
-        ArrayList<Byte> returnBytes = new ArrayList<>();
-        returnBytes.add((byte)0x00);
-        returnBytes.add((byte)0x00);
-        returnBytes.add((byte)0x02);
-        returnBytes.add((byte)0x1d);
+        ArrayList<Byte> returnBytes = new ArrayList<>(BaseInfo.shortToBytesList((short) 2));
+        returnBytes.addAll(BaseInfo.shortToBytesList((short)30));
 
         //TODO:get info from database
         if(userKey.length() != USER_KEY_LENGTH){
@@ -77,7 +74,7 @@ public class UserInfo implements BaseInfo{
         powerAuthority=100;
         dataAuthority=100;
         //
-        returnBytes.add(userType);
+        returnBytes.addAll(BaseInfo.shortToBytesList(userType));
         returnBytes.addAll(BaseInfo.stringToBytesList(userKey));
         returnBytes.addAll(BaseInfo.intToBytesList(powerAuthority));
         returnBytes.addAll(BaseInfo.intToBytesList(dataAuthority));
@@ -85,7 +82,7 @@ public class UserInfo implements BaseInfo{
     }
 
     @Override
-    public void recoverFromID(String id) {
+    public void recoverFromID(byte[] id) {
 
     }
 }

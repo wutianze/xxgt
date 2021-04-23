@@ -69,6 +69,12 @@ public interface BaseInfo {
         }
         return returnArray;
     }
+    static int bytesToShort(byte[] bytes) {
+        ByteBuffer buffer = ByteBuffer.allocate(2);
+        buffer.put(bytes, 0, bytes.length);
+        buffer.flip();//need flip
+        return buffer.getShort();
+    }
     static int bytesToInt(byte[] bytes) {
         ByteBuffer buffer = ByteBuffer.allocate(4);
         buffer.put(bytes, 0, bytes.length);
@@ -81,6 +87,7 @@ public interface BaseInfo {
         buffer.flip();//need flip
         return buffer.getLong();
     }
+
     ArrayList<Byte> generateBytes();
-    void recoverFromID(String id);
+    void recoverFromID(byte[] id);
 }

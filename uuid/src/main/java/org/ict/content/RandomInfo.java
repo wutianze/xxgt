@@ -26,17 +26,15 @@ public class RandomInfo implements BaseInfo{
 
     @Override
     public ArrayList<Byte> generateBytes(){
-        ArrayList<Byte> returnBytes = new ArrayList<>();
-        returnBytes.add((byte)0x00);
-        returnBytes.add((byte)0x00);
-        returnBytes.add((byte)0x09);
-        returnBytes.add((byte)0x04);
+        ArrayList<Byte> returnBytes = new ArrayList<>(BaseInfo.shortToBytesList((short) 9));
+        returnBytes.addAll(BaseInfo.shortToBytesList((short)4));
+
         returnBytes.addAll(BaseInfo.intToBytesList(r.nextInt()));
         return returnBytes;
     }
 
     @Override
-    public void recoverFromID(String id) {
+    public void recoverFromID(byte[] id) {
 
     }
 }

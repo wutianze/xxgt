@@ -42,11 +42,8 @@ public class AlgorithmInfo implements BaseInfo{
 
     @Override
     public ArrayList<Byte> generateBytes(){
-        ArrayList<Byte> returnBytes = new ArrayList<>();
-        returnBytes.add((byte)0x00);
-        returnBytes.add((byte)0x00);
-        returnBytes.add((byte)0x03);
-        returnBytes.add((byte)0x12);
+        ArrayList<Byte> returnBytes = new ArrayList<>(BaseInfo.shortToBytesList((short) 3));
+        returnBytes.addAll(BaseInfo.shortToBytesList((short)14));
 
         returnBytes.addAll(BaseInfo.longToBytesList(algorithmType));
         returnBytes.addAll(BaseInfo.shortToBytesList(algorithmVersion));
@@ -55,7 +52,7 @@ public class AlgorithmInfo implements BaseInfo{
     }
 
     @Override
-    public void recoverFromID(String id) {
+    public void recoverFromID(byte[] id) {
 
     }
 }

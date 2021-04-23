@@ -61,8 +61,8 @@ public class TimeInfo implements BaseInfo{
     }
 
     @Override
-    public void recoverFromID(String id) {
-        this.timestamp = Long.parseLong(id.substring(0,8));
-        this.timeSequence = BaseInfo.stringToBytesArray(id.substring(8,9))[0];
+    public void recoverFromID(byte[] id) {
+        this.timestamp = BaseInfo.bytesToLong(Arrays.copyOfRange(id,0,8));
+        this.timeSequence = id[8];
     }
 }
