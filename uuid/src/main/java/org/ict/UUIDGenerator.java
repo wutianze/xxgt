@@ -61,6 +61,7 @@ public class UUIDGenerator {
     private int PREFIX_LENGTH;
     @Value("${org.ict.CHECK_LENGTH}")
     private int CHECK_LENGTH;
+    private ObjectMapper mapper = new ObjectMapper();
 
     @ResponseBody
     @RequestMapping("/generate")
@@ -82,7 +83,6 @@ public class UUIDGenerator {
 
         //build content
         ArrayList<ContentPiece> tmpContent = paramJSON.getContent();
-        ObjectMapper mapper = new ObjectMapper();
         try{
         for(ContentPiece c : tmpContent){
             ArrayList<Byte> newBytes = null;

@@ -113,7 +113,7 @@ public interface BaseInfo {
         return s.getBytes(StandardCharsets.US_ASCII);
     }
 
-    static byte[] longToBytesArray(long number) {
+    static byte[] longToByteArray(long number) {
         return ByteBuffer.allocate(8).putLong(0,number).array();
     }
     @Deprecated
@@ -152,7 +152,7 @@ public interface BaseInfo {
         }
         return returnArray;
     }
-    static int byteArrayToShort(byte[] bytes) {
+    static short byteArrayToShort(byte[] bytes) {
         ByteBuffer buffer = ByteBuffer.allocate(2);
         buffer.put(bytes, 0, bytes.length);
         buffer.flip();//need flip

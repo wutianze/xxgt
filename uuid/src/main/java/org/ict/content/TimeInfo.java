@@ -8,12 +8,12 @@ import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class TimeInfo implements BaseInfo{
-    private AtomicInteger atomicSequenceInteger;
+    private AtomicInteger atomicSequenceInteger = new AtomicInteger(0);
     public long timestamp;
     public byte timeSequence;
-    public TimeInfo(){
-        atomicSequenceInteger = new AtomicInteger(0);
-    }
+    //public TimeInfo(){
+    //    atomicSequenceInteger = new AtomicInteger(0);
+    //}
     public AtomicInteger getAtomicSequenceInteger() {
         return atomicSequenceInteger;
     }
