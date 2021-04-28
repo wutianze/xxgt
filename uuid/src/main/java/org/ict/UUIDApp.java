@@ -1,13 +1,16 @@
 package org.ict;
 
-import org.ict.content.BaseInfo;
-import org.ict.content.TimeInfo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
-import java.io.UnsupportedEncodingException;
-
+/**
+ * Entry-Point Class
+ * Run the main function
+ *
+ * @author TianzeWu
+ * @date 2021-04-23
+ */
 @EnableEurekaClient
 @SpringBootApplication
 public class UUIDApp {

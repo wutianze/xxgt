@@ -14,12 +14,19 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 import java.util.ArrayList;
-
+ /**
+   * <p>The response body which contains the ID generated. The class will be transferred to JSON.</p>
+   *
+   *
+   * @author TianzeWu
+   * @date 2021-04-28
+   */
 class ResponseID{
     String status;
     String prefix;
     String check;
     String id;
+    String full;
 
     public String getStatus() {
         return status;
@@ -52,8 +59,29 @@ class ResponseID{
     public void setId(String id) {
         this.id = id;
     }
+     public String getFull() {
+         return full;
+     }
+
+     public void setFull(String full) {
+         this.full = full;
+     }
+     /**
+      * Combine prefix, check and id to provide the final ID
+      *
+      * @author TianzeWu
+      */
+     public void generateFull(){
+        this.full = prefix+check+id;
+     }
 }
 
+ /**
+   * Generate ID for users
+   *
+   * @author TianzeWu
+   * @date 2021-04-28
+   */
 @RestController
 public class UUIDGenerator {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -63,6 +91,14 @@ public class UUIDGenerator {
     private int CHECK_LENGTH;
     private ObjectMapper mapper = new ObjectMapper();
 
+/**
+ *
+ *
+ * @param paramJSON a JSON string
+ * @return ResponseID
+ * @exception IOException
+ * @author TianzeWu
+ */
     @ResponseBody
     @RequestMapping("/generate")
     public ResponseID generate(@RequestBody UUIDParam paramJSON) throws IOException {
@@ -70,7 +106,7 @@ public class UUIDGenerator {
         ResponseID responseID = new ResponseID();
         ArrayList<Byte>tmpID = new ArrayList<>();
 
-        //build prefix
+        //~ build prefix
         StringBuilder tmpPrefix = new StringBuilder(paramJSON.getPrefix());
         if(tmpPrefix.length() >= PREFIX_LENGTH){
             tmpPrefix = new StringBuilder(tmpPrefix.substring(0, PREFIX_LENGTH));
@@ -81,7 +117,7 @@ public class UUIDGenerator {
         }
         responseID.setPrefix(tmpPrefix.toString());
 
-        //build content
+        //~ build content
         ArrayList<ContentPiece> tmpContent = paramJSON.getContent();
         try{
         for(ContentPiece c : tmpContent){
@@ -147,6 +183,7 @@ public class UUIDGenerator {
             return responseID;
         }
 
+        //~ fill responseID
         responseID.setStatus("success");
         byte[] finalID = new byte[tmpID.size()];
         for(int i=0;i<tmpID.size();i++){

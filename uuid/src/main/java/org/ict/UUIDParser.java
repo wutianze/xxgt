@@ -15,7 +15,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+ /**
+   * <p>The information extracted from ID</p>
+   *
+   * @author TianzeWu
+   * @date 2021-04-28
+   */
 class ResponseInfo{
     public String status;
     public boolean integrity;
@@ -45,6 +50,14 @@ class ResponseInfo{
         this.infoMap = infoMap;
     }
 }
+
+ /**
+   * <p>It was used to extract useful information from ID for users</p>
+   *
+   *
+   * @author TianzeWu
+   * @date 2021-04-28
+   */
 @RestController
 public class UUIDParser {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -56,19 +69,49 @@ public class UUIDParser {
 
     private final ObjectMapper mapper = new ObjectMapper();
 
-
-
+    /**
+     * Check whether the check code suits the data ID
+     *
+     * @param forCheck the check code in the full ID
+     * @param ID the data ID in the full ID without check code or prefix
+     * @return whether the forCheck code suits the data ID
+     * @author TianzeWu
+     */
     public boolean integrityCheck(String forCheck, byte[] ID, int cutLength){
         String calculateCheck = (BaseInfo.byteArrayToHexString(DigestUtils.md5Digest(ID))).substring(0,cutLength);
         return forCheck.substring(0,cutLength).equals(calculateCheck);
     }
+
+    /**
+     * Get the data segment's type
+     *
+     * @param foreHead the first two bytes of the data head
+     * @return the type number of the data segment
+     * @author TianzeWu
+     */
     public short getInfoTypeFromForeHead(byte[] foreHead){
         return BaseInfo.byteArrayToShort(foreHead);
     }
+
+    /**
+     * Get the data segment's length in byte
+     *
+     * @param afterHead the next two bytes of the data head
+     * @return the length of the data segment in byte
+     * @author TianzeWu
+     */
     public short getInfoLengthFromAfterHead(byte[] afterHead){
         return BaseInfo.byteArrayToShort(afterHead);
     }
 
+    /**
+     * Find data segment in data ID
+     *
+     * @param toFind the type number of the data segment to search
+     * @param  ID the data ID byte array
+     * @return <code>-1</code> cannot find the data segment; <code>int >= 0</code> index in the data ID of the data segment's head
+     * @author TianzeWu
+     */
     public int findInfo(short toFind, byte[] ID){
         for(int i=0;i<ID.length;i++){
             if(toFind == getInfoTypeFromForeHead(Arrays.copyOfRange(ID,i,i+2))){
@@ -79,10 +122,27 @@ public class UUIDParser {
         }
         return -1;
     }
+
+    /**
+     * Find one type of data segment in data ID
+     *
+     * @param toFind the type number of the data segment to search
+     * @param hexID the data ID string
+     * @return <code>-1</code> cannot find the data segment; <code>int >= 0</code> index in the data ID of the data segment's head
+     * @author TianzeWu
+     */
     public int findInfo(short toFind, String hexID){
         byte[] byteID = BaseInfo.hexStringToByteArray(hexID);
         return findInfo(toFind,byteID);
     }
+
+    /**
+     * Extract information from data segment byte array
+     *
+     * @param pieceID data segment byte array
+     * @return <code>null</code> if do not know the type of the data segment; <code>different Info class</code> the Info class recovered from pieceID
+     * @author TianzeWu
+     */
     private BaseInfo getOneInfo(byte[] pieceID, short infoType){
         switch(infoType){
             case 0:
@@ -134,21 +194,46 @@ public class UUIDParser {
                 return null;
         }
     }
-private int getInfoNumber(byte[] byteID){
+
+    /**
+     * How many Infos in this data ID
+     *
+     * @param byteID data ID byte array
+     * @return the number of Infos in this data ID
+     * @author TianzeWu
+     */
+    private int getInfoNumber(byte[] byteID){
         int number = 0;
         int startIndex = 0;
         while(startIndex<byteID.length){
             startIndex = startIndex+4+getInfoLengthFromAfterHead(Arrays.copyOfRange(byteID,startIndex+2,startIndex+4));
             number++;
-    }
+        }
         return number;
-}
+    }
+
+    /**
+     * Get how many data segments in the ID from prefix
+     *
+     * @param prefix prefix in the ID
+     * @return number of data segments
+     * @author TianzeWu
+     */
     private int getNumberFromPrefix(String prefix){
         String regEx="[^0-9]";
         Pattern pattern = Pattern.compile(regEx);
         Matcher matcher = pattern.matcher(prefix);
         return Integer.parseInt(matcher.replaceAll("").trim());
     }
+
+    /**
+     * Check whether the prefix suits the data ID
+     *
+     * @param prefix prefix in the ID
+     * @param byteID data ID
+     * @return whether the prefix suits the data ID
+     * @author TianzeWu
+     */
     public boolean checkPrefix(String prefix, byte[] byteID){
         if(prefix.contains("TAG")){
             return findInfo((short)8,byteID)!=-1;
@@ -167,11 +252,27 @@ private int getInfoNumber(byte[] byteID){
         }
         return getNumberFromPrefix(prefix) == getInfoNumber(byteID);
     }
+
+    /**
+     * Invoke integrityCheck to check whether the check code suits the data ID
+     *
+     * @param forCheck the check code in the full ID
+     * @param hexID the data ID
+     * @return whether the forCheck code suits the data ID
+     * @author TianzeWu
+     */
     @RequestMapping("/integrity")
     public boolean integrity(@PathVariable String forCheck, @PathVariable String hexID){
         return integrityCheck(forCheck,BaseInfo.hexStringToByteArray(hexID),CHECK_LENGTH);
     }
 
+    /**
+     * Extract information from the ID
+     *
+     * @param prefixCheckID the ID which contains prefix, check code and data ID
+     * @return the information extracted from the ID
+     * @author TianzeWu
+     */
     @ResponseBody
     @RequestMapping("/parse")
     public ResponseInfo parse(String prefixCheckID) throws JsonProcessingException {
