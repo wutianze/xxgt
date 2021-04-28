@@ -11,9 +11,6 @@ public class TimeInfo implements BaseInfo{
     private AtomicInteger atomicSequenceInteger = new AtomicInteger(0);
     public long timestamp;
     public byte timeSequence;
-    //public TimeInfo(){
-    //    atomicSequenceInteger = new AtomicInteger(0);
-    //}
     public AtomicInteger getAtomicSequenceInteger() {
         return atomicSequenceInteger;
     }

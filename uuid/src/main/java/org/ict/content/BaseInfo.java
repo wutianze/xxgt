@@ -2,12 +2,18 @@ package org.ict.content;
 
 import org.springframework.util.StringUtils;
 
-import java.lang.reflect.Array;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+ /**
+   * <p>Abstract class of different type of Info. It also provides some useful functions to construct or parse ID</p>
+   *
+   *
+   * @author TianzeWu
+   * @date 2021-04-28
+   */
 public interface BaseInfo {
     static byte[] hexStringToByteArray(String hexString) {
         if (StringUtils.isEmpty(hexString)) {
@@ -47,12 +53,12 @@ public interface BaseInfo {
         }
 
         hexString = hexString.toLowerCase();
-        final ArrayList<Byte> byteList = new ArrayList<>(hexString.length() / 2);
+        final ArrayList<Byte> byteList = new ArrayList<>();
         int k = 0;
-        for (int i = 0; i < byteList.size(); i++) {
+        for (int i = 0; i < hexString.length() / 2; i++) {
             byte high = (byte) (Character.digit(hexString.charAt(k), 16) & 0xff);
             byte low = (byte) (Character.digit(hexString.charAt(k + 1), 16) & 0xff);
-            byteList.set(i, (byte) (high << 4 | low));
+            byteList.add((byte) (high << 4 | low));
             k += 2;
         }
         return byteList;
@@ -101,7 +107,7 @@ public interface BaseInfo {
         return returnBytes;
     }
     static byte[] bytesFromBytes(Byte[] tempBytes){
-       byte[] returnBytes = new byte[tempBytes.length];
+        byte[] returnBytes = new byte[tempBytes.length];
         for(int i=0;i<tempBytes.length;i++){
             returnBytes[i] = tempBytes[i];
         }
@@ -125,8 +131,6 @@ public interface BaseInfo {
         }
         return returnBytes;
     }
-
-
 
     static ArrayList<Byte> longToByteList(long number){
         ByteBuffer buffer = ByteBuffer.allocate(8).putLong(0,number);
@@ -171,6 +175,19 @@ public interface BaseInfo {
         return buffer.getLong();
     }
 
+    /**
+     * Generate a Byte List of the Info
+     *
+     * @return the Byte List generated
+     * @author TianzeWu
+     */
     ArrayList<Byte> generateBytes();
+
+    /**
+     * Rebuild the Info class from the ID
+     *
+     * @param id ID byte array
+     * @author TianzeWu
+     */
     void recoverFromID(byte[] id);
 }
