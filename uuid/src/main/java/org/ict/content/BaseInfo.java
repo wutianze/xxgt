@@ -19,6 +19,9 @@ public interface BaseInfo {
         if (StringUtils.isEmpty(hexString)) {
             throw new IllegalArgumentException("this hexString must not be empty");
         }
+        if(hexString.length()%2 != 0){
+            throw new IllegalArgumentException("this hexString's length must be an even number");
+        }
 
         hexString = hexString.toLowerCase();
         final byte[] byteArray = new byte[hexString.length() / 2];
@@ -35,7 +38,9 @@ public interface BaseInfo {
         if (StringUtils.isEmpty(hexString)) {
             throw new IllegalArgumentException("this hexString must not be empty");
         }
-
+        if((endIndex-startIndex)%2 != 0){
+            throw new IllegalArgumentException("this subHexString's length must be an even number");
+        }
         hexString = hexString.substring(startIndex,endIndex).toLowerCase();
         final byte[] byteArray = new byte[hexString.length() / 2];
         int k = 0;
@@ -51,7 +56,9 @@ public interface BaseInfo {
         if (StringUtils.isEmpty(hexString)) {
             throw new IllegalArgumentException("this hexString must not be empty");
         }
-
+        if(hexString.length()%2 != 0){
+            throw new IllegalArgumentException("this hexString's length must be an even number");
+        }
         hexString = hexString.toLowerCase();
         final ArrayList<Byte> byteList = new ArrayList<>();
         int k = 0;
@@ -99,14 +106,14 @@ public interface BaseInfo {
         bytes = Arrays.copyOfRange(bytes,startIndex,endIndex);
         return new String(bytes, StandardCharsets.US_ASCII);
     }
-    static Byte[] bytesToBytes(byte[] tempBytes){
+    static Byte[] byteArrayToByteArray(byte[] tempBytes){
         Byte[] returnBytes = new Byte[tempBytes.length];
         for(int i=0;i<tempBytes.length;i++){
             returnBytes[i] = tempBytes[i];
         }
         return returnBytes;
     }
-    static byte[] bytesFromBytes(Byte[] tempBytes){
+    static byte[] byteArrayFromByteArray(Byte[] tempBytes){
         byte[] returnBytes = new byte[tempBytes.length];
         for(int i=0;i<tempBytes.length;i++){
             returnBytes[i] = tempBytes[i];
@@ -115,7 +122,7 @@ public interface BaseInfo {
     }
 
     @Deprecated
-    static byte[] stringToBytesArray(String s){
+    static byte[] stringToByteArray(String s){
         return s.getBytes(StandardCharsets.US_ASCII);
     }
 
@@ -123,7 +130,7 @@ public interface BaseInfo {
         return ByteBuffer.allocate(8).putLong(0,number).array();
     }
     @Deprecated
-    static ArrayList<Byte> stringToBytesList(String s){
+    static ArrayList<Byte> stringToByteList(String s){
         byte[] tempBytes =  s.getBytes(StandardCharsets.US_ASCII);
         ArrayList<Byte> returnBytes = new ArrayList<>();
         for (byte tempByte : tempBytes) {
