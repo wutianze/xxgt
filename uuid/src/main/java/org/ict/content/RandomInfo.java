@@ -4,32 +4,24 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class RandomInfo implements BaseInfo{
-    public Random r;
-    public RandomInfo(){
-        r = new Random();
+    public int randomNumber;
+
+    public int getRandomNumber() {
+        return randomNumber;
     }
 
-    public Random getR() {
-        return r;
-    }
-
-    public void setR(Random r) {
-        this.r = r;
-    }
-
-    @Override
-    public String toString() {
-        return "RandomInfo{" +
-                "r=" + r +
-                '}';
+    public void setRandomNumber(int randomNumber) {
+        this.randomNumber = randomNumber;
     }
 
     @Override
     public ArrayList<Byte> generateBytes(){
-        ArrayList<Byte> returnBytes = new ArrayList<>(BaseInfo.shortToByteList((short) 9));
+        Random r = new Random();
+        ArrayList<Byte> returnBytes = new ArrayList<>(BaseInfo.shortToByteList((short) 8));
         returnBytes.addAll(BaseInfo.shortToByteList((short)4));
 
-        returnBytes.addAll(BaseInfo.intToByteList(r.nextInt()));
+        this.randomNumber = r.nextInt();
+        returnBytes.addAll(BaseInfo.intToByteList(this.randomNumber));
         return returnBytes;
     }
 

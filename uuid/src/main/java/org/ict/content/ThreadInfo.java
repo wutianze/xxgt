@@ -43,7 +43,7 @@ public class ThreadInfo implements BaseInfo{
 
     @Override
     public ArrayList<Byte> generateBytes() {
-        ArrayList<Byte> returnBytes = new ArrayList<>(BaseInfo.shortToByteList((short) 11));
+        ArrayList<Byte> returnBytes = new ArrayList<>(BaseInfo.shortToByteList((short) 10));
         returnBytes.addAll(BaseInfo.shortToByteList((short)12));
 
         returnBytes.addAll(BaseInfo.intToByteList(threadID));

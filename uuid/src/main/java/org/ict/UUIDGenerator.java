@@ -96,7 +96,7 @@ public class UUIDGenerator {
  *
  * @param paramJSON a JSON string
  * @return ResponseID
- * @exception IOException
+ * @exception IOException read JSON value fail
  * @author TianzeWu
  */
     @ResponseBody
@@ -195,6 +195,7 @@ public class UUIDGenerator {
         responseID.setCheck((BaseInfo.byteArrayToHexString(DigestUtils.md5Digest(finalID))).substring(0,CHECK_LENGTH));// return 16 bytes
         logger.info(String.valueOf(responseID.getCheck().length()));
         responseID.setId(finalIDString);
+        responseID.generateFull();
         return responseID;
     }
 }

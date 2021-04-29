@@ -2,7 +2,6 @@ package org.ict;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ser.Serializers;
 import org.ict.content.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -131,6 +130,7 @@ public class UUIDParser {
      * @return <code>-1</code> cannot find the data segment; <code>int >= 0</code> index in the data ID of the data segment's head
      * @author TianzeWu
      */
+    @RequestMapping(value="/findInfo",method=RequestMethod.GET)
     public int findInfo(short toFind, String hexID){
         byte[] byteID = BaseInfo.hexStringToByteArray(hexID);
         return findInfo(toFind,byteID);
@@ -236,7 +236,7 @@ public class UUIDParser {
      */
     public boolean checkPrefix(String prefix, byte[] byteID){
         if(prefix.contains("TAG")){
-            return findInfo((short)8,byteID)!=-1;
+            return findInfo((short)7,byteID)!=-1;
         }
         if(prefix.contains("ALG")){
             return findInfo((short)3,byteID)!=-1;
@@ -261,8 +261,8 @@ public class UUIDParser {
      * @return whether the forCheck code suits the data ID
      * @author TianzeWu
      */
-    @RequestMapping("/integrity")
-    public boolean integrity(@PathVariable String forCheck, @PathVariable String hexID){
+    @RequestMapping(value="/integrity",method=RequestMethod.GET)
+    public boolean integrity(String forCheck, String hexID){
         return integrityCheck(forCheck,BaseInfo.hexStringToByteArray(hexID),CHECK_LENGTH);
     }
 

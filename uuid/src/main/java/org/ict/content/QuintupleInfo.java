@@ -63,7 +63,7 @@ public class QuintupleInfo implements BaseInfo{
 
     @Override
     public ArrayList<Byte> generateBytes() {
-        ArrayList<Byte> returnBytes = new ArrayList<>(BaseInfo.shortToByteList((short) 7));
+        ArrayList<Byte> returnBytes = new ArrayList<>(BaseInfo.shortToByteList((short) 6));
         returnBytes.addAll(BaseInfo.shortToByteList((short)14));
 
         returnBytes.addAll(Arrays.asList(sourceIP));
