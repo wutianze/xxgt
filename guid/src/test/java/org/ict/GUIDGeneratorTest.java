@@ -17,7 +17,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class UUIDGeneratorTest {
+public class GUIDGeneratorTest {
     @Autowired
     private WebApplicationContext wac;
 

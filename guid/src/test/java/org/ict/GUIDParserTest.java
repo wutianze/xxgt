@@ -21,12 +21,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class UUIDParserTest{
+public class GUIDParserTest {
     @Autowired
     private WebApplicationContext wac;
 
     @Autowired
-    private UUIDParser uuidParser;
+    private GUIDParser GUIDParser;
 
     private MockMvc mvc;
     private MockHttpSession session;
@@ -40,13 +40,13 @@ public class UUIDParserTest{
     @Test
     public void testIntegrityCheck() {
         byte[] ID = {(byte)0x00,(byte)0x09,(byte)0x00,(byte)0x04,(byte)0xd9,(byte)0x6a,(byte)0x92,(byte)0x28};
-        Assert.assertThat(uuidParser.integrityCheck("1e44",ID,4),is(true));
+        Assert.assertThat(GUIDParser.integrityCheck("1e44",ID,4),is(true));
     }
 
     @Test
     public void testFindInfo() {
         byte[] ID = {(byte)0x00,(byte)0x08,(byte)0x00,(byte)0x04,(byte)0xd9,(byte)0x6a,(byte)0x92,(byte)0x28};
-        Assert.assertThat(uuidParser.findInfo((short)8,ID),is(0));
+        Assert.assertThat(GUIDParser.findInfo((short)8,ID),is(0));
     }
 
     @Test
@@ -65,7 +65,7 @@ public class UUIDParserTest{
     @Test
     public void testCheckPrefix() {
         byte[] ID = {(byte)0x00,(byte)0x08,(byte)0x00,(byte)0x04,(byte)0xd9,(byte)0x6a,(byte)0x92,(byte)0x28};
-        Assert.assertThat(uuidParser.checkPrefix("TAG1",ID),is(false));
+        Assert.assertThat(GUIDParser.checkPrefix("TAG1",ID),is(false));
     }
 
     @Test
@@ -96,12 +96,12 @@ public class UUIDParserTest{
     @Test
     public void testGetInfoTypeFromForeHead(){
         byte[] foreHead = {(byte)0x01,(byte)0x01};
-        Assert.assertThat(uuidParser.getInfoTypeFromForeHead(foreHead),is((short)257));
+        Assert.assertThat(GUIDParser.getInfoTypeFromForeHead(foreHead),is((short)257));
     }
 
     @Test
     public void testGetInfoLengthFromAfterHead() {
         byte[] afterHead = {(byte)0x01,(byte)0x01};
-        Assert.assertThat(uuidParser.getInfoLengthFromAfterHead(afterHead),is((short)257));
+        Assert.assertThat(GUIDParser.getInfoLengthFromAfterHead(afterHead),is((short)257));
     }
 }

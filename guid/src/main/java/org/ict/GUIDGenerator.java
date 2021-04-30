@@ -83,7 +83,7 @@ class ResponseID{
    * @date 2021-04-28
    */
 @RestController
-public class UUIDGenerator {
+public class GUIDGenerator {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     @Value("${org.ict.PREFIX_LENGTH}")
     private int PREFIX_LENGTH;
@@ -101,7 +101,7 @@ public class UUIDGenerator {
  */
     @ResponseBody
     @RequestMapping("/generate")
-    public ResponseID generate(@RequestBody UUIDParam paramJSON) throws IOException {
+    public ResponseID generate(@RequestBody GUIDParam paramJSON) throws IOException {
 
         ResponseID responseID = new ResponseID();
         ArrayList<Byte>tmpID = new ArrayList<>();

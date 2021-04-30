@@ -35,7 +35,7 @@ class ContentPiece{
    * @author TianzeWu
    * @date 2021-04-28
    */
-public class UUIDParam {
+public class GUIDParam {
     String prefix;
     ArrayList<ContentPiece>content;
 

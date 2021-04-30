@@ -58,7 +58,7 @@ class ResponseInfo{
    * @date 2021-04-28
    */
 @RestController
-public class UUIDParser {
+public class GUIDParser {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     @Value("${org.ict.PREFIX_LENGTH}")
     int PREFIX_LENGTH;

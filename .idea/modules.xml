@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/eureka-server/eureka-server.iml" filepath="$PROJECT_DIR$/eureka-server/eureka-server.iml" />
-      <module fileurl="file://$PROJECT_DIR$/uuid/uuid.iml" filepath="$PROJECT_DIR$/uuid/uuid.iml" />
+      <module fileurl="file://$PROJECT_DIR$/guid/guid.iml" filepath="$PROJECT_DIR$/guid/guid.iml" />
     </modules>
   </component>
 </project>
