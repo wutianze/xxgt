@@ -16,4 +16,7 @@
     ```
 
 # SDK使用
-    
+- 打包时将项目和所依赖的jar分开，最终生成一个依赖文件夹（intellij中打包时选择copy to the output directory and link via manifest）
+- 在需要使用该SDK的项目中创建lib文件夹（如果没有的话）
+- 将打包出来的依赖文件夹拷贝到lib文件夹下
+- 将该文件夹添加成项目的依赖库（intellij上为add as library）
