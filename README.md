@@ -28,10 +28,10 @@
     ```JSON
     {
     "status": "success",//status字段表示此次请求的完成状态
-    "prefix": "UNITIM4   ",//prefix为生成的10字节前缀
+    "prefix": "UNITIM1   ",//prefix为生成的10字节前缀
     "check": "4af4",//check字段为该ID的部分校验位
     "id": "000000090000017940371e7001",//id字段为ID主体
-    "full": "UNITIM4   4af4000000090000017940371e7001"//full为将prefix/check/id拼接成的完整ID。
+    "full": "UNITIM1   4af4000000090000017940371e7001"//full为将prefix/check/id拼接成的完整ID。
     }
     ```
 
