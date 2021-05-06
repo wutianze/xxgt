@@ -1,7 +1,13 @@
 package org.ict.content;
 
 import java.util.ArrayList;
-
+ /**
+   * <p>Information of one piece of data in info-superbahn</p>
+   *
+   *
+   * @author TianzeWu
+   * @date 2021-05-06
+   */
 public class DataInfo implements BaseInfo{
     int dataType;
     long dataSize;

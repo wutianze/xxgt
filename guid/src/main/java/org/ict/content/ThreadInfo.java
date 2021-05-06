@@ -2,7 +2,13 @@ package org.ict.content;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-
+ /**
+   * <p>Information of a thread in info-superbahn</p>
+   *
+   *
+   * @author TianzeWu
+   * @date 2021-05-06
+   */
 public class ThreadInfo implements BaseInfo{
     int threadID;
     int processID;

@@ -2,7 +2,13 @@ package org.ict.content;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-
+ /**
+   * <p>Information of a link in info-superbahn</p>
+   *
+   *
+   * @author TianzeWu
+   * @date 2021-05-06
+   */
 public class QuintupleInfo implements BaseInfo{
     Byte[] sourceIP;
     short sourcePort;

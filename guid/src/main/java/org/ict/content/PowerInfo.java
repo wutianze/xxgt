@@ -1,7 +1,13 @@
 package org.ict.content;
 
 import java.util.ArrayList;
-
+ /**
+   * <p>Information of computing power in info-superbahn</p>
+   *
+   *
+   * @author TianzeWu
+   * @date 2021-05-06
+   */
 public class PowerInfo implements BaseInfo{
     int powerType;
     int powerAbility;

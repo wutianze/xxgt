@@ -6,7 +6,13 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicInteger;
-
+ /**
+   * <p>Timestamp</p>
+   *
+   *
+   * @author TianzeWu
+   * @date 2021-05-06
+   */
 public class TimeInfo implements BaseInfo{
     private AtomicInteger atomicSequenceInteger = new AtomicInteger(0);
     public long timestamp;

@@ -6,7 +6,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 
 import java.util.ArrayList;
-
+ /**
+   * <p>Information of a device in info-superbahn</p>
+   *
+   *
+   * @author TianzeWu
+   * @date 2021-05-06
+   */
 public class DeviceInfo implements BaseInfo{
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     @Value("${org.ict.MANUFACTURER_ID_LENGTH}")

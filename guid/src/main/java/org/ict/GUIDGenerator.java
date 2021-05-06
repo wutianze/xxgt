@@ -67,7 +67,7 @@ class ResponseID{
          this.full = full;
      }
      /**
-      * Combine prefix, check and id to provide the final ID
+      * Combine "prefix", "check" and "id" to provide the final ID
       *
       * @author TianzeWu
       */

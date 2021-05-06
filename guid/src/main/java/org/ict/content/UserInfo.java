@@ -7,7 +7,13 @@ import org.springframework.beans.factory.annotation.Value;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
-
+ /**
+   * <p>Information of one user in info-superbahn</p>
+   *
+   *
+   * @author TianzeWu
+   * @date 2021-05-06
+   */
 public class UserInfo implements BaseInfo{
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     short userType;

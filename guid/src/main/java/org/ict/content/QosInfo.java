@@ -1,7 +1,13 @@
 package org.ict.content;
 
 import java.util.ArrayList;
-
+ /**
+   * <p>Information of a QoS tag in info-superbahn</p>
+   *
+   *
+   * @author TianzeWu
+   * @date 2021-05-06
+   */
 public class QosInfo implements BaseInfo{
     int qosType;
     long qosValue;

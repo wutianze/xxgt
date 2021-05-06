@@ -1,7 +1,13 @@
 package org.ict.content;
 
 import java.util.ArrayList;
-
+ /**
+   * <p>Information one Docker container</p>
+   *
+   *
+   * @author TianzeWu
+   * @date 2021-05-06
+   */
 public class ContainerInfo implements BaseInfo{
     String containerID;
     String imageID;

@@ -1,7 +1,13 @@
 package org.ict.content;
 
 import java.util.ArrayList;
-
+ /**
+   * <p>Information of one algorithm used in info-superbahn</p>
+   *
+   *
+   * @author TianzeWu
+   * @date 2021-05-06
+   */
 public class AlgorithmInfo implements BaseInfo{
     long algorithmType;
     short algorithmVersion;
