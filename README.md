@@ -5,6 +5,16 @@
 - `java -jar guid-1.0-SNAPSHOT.jar`
 - 如果想修改运行时变量，可以将`guid/src/main/resources/`中的application.properties拷贝到jar同目录，然后修改里面的值。
 - parse demo: `152.136.134.100:1026/parse?prefixCheckID=UniTimDev1f7930000000900000179029edc2a01`
+    返回值：
+    ```JSON
+    {
+    "status": "Warning: prefix not match",//status字段表示此次请求的完成状态
+    "integrity": true,//integrity字段表示该ID中的校验位是否正确
+    "infoMap": {//java中map转成的JSON，包含了该ID中所有的数据段的具体信息
+        "TimeInfo": "{\"atomicSequenceInteger\":0,\"timestamp\":1619686415182,\"timeSequence\":1}"//一条数据段信息
+    }
+    }
+    ```
 - generate demo: `152.136.134.100:1026/generate`，请求的body为json字符串：
     ```JSON
     {
@@ -12,6 +22,16 @@
 	"content":[
 		{"type":"timeInfo"}
 	]
+    }
+    ```
+    返回值：
+    ```JSON
+    {
+    "status": "success",//status字段表示此次请求的完成状态
+    "prefix": "UNITIM4   ",//prefix为生成的10字节前缀
+    "check": "4af4",//check字段为该ID的部分校验位
+    "id": "000000090000017940371e7001",//id字段为ID主体
+    "full": "UNITIM4   4af4000000090000017940371e7001"//full为将prefix/check/id拼接成的完整ID。
     }
     ```
 
